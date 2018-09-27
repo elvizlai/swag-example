@@ -1,0 +1,151 @@
+basePath: /api/v1
+definitions:
+  model.Location:
+    properties:
+      addr:
+        type: string
+    type: object
+  model.User:
+    properties:
+      loc:
+        $ref: '#/definitions/model.Location'
+        type: object
+      name:
+        type: string
+      next:
+        $ref: '#/definitions/model.User'
+        type: object
+    type: object
+  pb.BuildingInfo:
+    properties:
+      area:
+        type: integer
+      coord:
+        type: Coordinate
+      corp_id:
+        type: string
+      create_at:
+        type: integer
+      extra:
+        type: string
+      id:
+        type: string
+      layer_num:
+        type: integer
+      loc:
+        type: Location
+      model_urls:
+        items:
+          type: string
+        type: array
+      models:
+        items:
+          type: string
+        type: array
+      modify_by:
+        type: string
+      name:
+        type: string
+      status:
+        type: integer
+      update_at:
+        type: integer
+      zone_id:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a sample server celler server.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Swagger Example API
+  version: "1.0"
+paths:
+  /accounts/{id}:
+    get:
+      consumes:
+      - application/json
+      description: get string by ID
+      parameters:
+      - description: Account ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/pb.BuildingInfo'
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/pb.BuildingInfo'
+            type: object
+      summary: Show a account
+  /accounts2/{id}:
+    get:
+      consumes:
+      - application/json
+      description: get string by ID
+      parameters:
+      - description: Account ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.User'
+            type: object
+      summary: Show a account
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+  BasicAuth:
+    type: basic
+  OAuth2AccessCode:
+    authorizationUrl: https://example.com/oauth/authorize
+    flow: accessCode
+    scopes:
+      admin: ' Grants read and write access to administrative information'
+    tokenUrl: https://example.com/oauth/token
+    type: oauth2
+  OAuth2Application:
+    flow: application
+    scopes:
+      admin: ' Grants read and write access to administrative information'
+      write: ' Grants write access'
+    tokenUrl: https://example.com/oauth/token
+    type: oauth2
+  OAuth2Implicit:
+    authorizationUrl: https://example.com/oauth/authorize
+    flow: implicit
+    scopes:
+      admin: ' Grants read and write access to administrative information'
+      write: ' Grants write access'
+    type: oauth2
+  OAuth2Password:
+    flow: password
+    scopes:
+      admin: ' Grants read and write access to administrative information'
+      read: ' Grants read access'
+      write: ' Grants write access'
+    tokenUrl: https://example.com/oauth/token
+    type: oauth2
+swagger: "2.0"
